@@ -36,20 +36,29 @@ class bankAcountSystem {
     }
   }
   deposit(name, value) {
-    return new Promise((resolve, reject) => {
-      if (typeof value !== "number" || isNaN(value)) {
-        reject("Invalid deposit value. Please enter a valid number.");
-        return;
-      }
-      console.log("Processing deposit of", value, "to", name);
-      setTimeout(() => {
-        name.balance += value;
-        console.log(`Successfully transferred ${value} to ${name}.`);
-        console.log(`Current balance is ${name.balance}.`);
-        resolve(name.balance);
-      }, 2000);
-    });
-  }
+        return new Promise((resolve, reject) => {
+            if (typeof value !== 'number' || isNaN(value)) {
+                reject("Invalid deposit value. Please enter a valid number.");
+                return;
+            }
+
+            console.log("Processing deposit of", value);
+
+            setTimeout(() => {
+                name.balance += value;
+                console.log('Successfully transferred', value);
+                console.log('Current balance is', name.balance);
+                resolve(name.balance);
+            }, 2000);
+            then(newBalance => {
+            console.log('Deposit completed. New balance:', newBalance);
+            })
+            .catch(error => {
+            console.error(error);
+            });
+        });
+    }
+
   addAmount(amount) {
     try {
       this.balance += amount;
